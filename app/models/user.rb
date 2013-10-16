@@ -7,8 +7,8 @@ has_many :visits, dependent: :destroy
 validates_uniqueness_of :email
 
 
-  def self.from_omniauth(auth, hivetype)
-    find_by_provider_and_uid(auth["provider"], auth["uid"]) || create_with_omniauth(auth, hivetype)
+  def self.from_omniauth(auth)
+    find_by_provider_and_uid(auth["provider"], auth["uid"]) || create_with_omniauth(auth)
   end
 
   def email_or_id
@@ -27,13 +27,12 @@ validates_uniqueness_of :email
     end
   end
 
-  def self.create_with_omniauth(auth,hivetype)
+  def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       user.name = auth["info"]["name"]
       user.email = auth["info"]["email"]
-      user.hivetype = hivetype
     end
   end
 end

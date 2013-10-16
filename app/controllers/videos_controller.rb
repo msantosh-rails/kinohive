@@ -117,6 +117,13 @@ class VideosController < ApplicationController
 
   def count_views
 	@views = Visit.where(page: request.fullpath).count
+#	@non_users = Visit.where(user_id: nil).count
+#  	@video_views = Visit.where('page =?', request.fullpath).select('distinct ip_address').count
+#		@total_views = 0;
+#		@video_views.values.each do |views|
+#			@total_views += views.to_i
+#		end
+#	@total_views += @non_users	
   end
   
 end

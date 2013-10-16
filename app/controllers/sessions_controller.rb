@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-	    user = User.from_omniauth(env["omniauth.auth"], params[:hivetype])
+	    user = User.from_omniauth(env["omniauth.auth"])
 		if user.provider == 'facebook' and user.email.blank? and \
         	env["omniauth.auth"] and env["omniauth.auth"]["info"] and env["omniauth.auth"]["info"]["email"]
       		user.update_attribute(:email, env["omniauth.auth"]["info"]["email"])

@@ -2,37 +2,31 @@
 
 <body>
 
-
-<h1 style='display:inline;float:left;'> Videos </h1>
-<% if !@videos.blank?%>
- <%= render :partial => "search_form.html.erb", locals: {q: @q} %> 	
-
-
-
-
-	<%@videos.each do |video|%>
-	
-	<div class="videopic" >  
-		<% if !video.video_pic.blank? %>
-			<%= link_to image_tag(video.video_pic_url(:thumb),:width => 200, :height => 100, :class=>"img-polaroid"), video_path(video) %> 
-		<% else %>
-			<%= link_to image_tag('video.png', width: 200, height: 100, class: 'img-polaroid'), video_path(video) %>
-		<% end %>
-	<div class="title" ><%=video.video_title%></div>
+<div class='row'>
+	<div class='span12'>
+			<%= render :partial => "search_form.html.erb", locals: {q: @q} %>
+					<!-- Displaying Most Hivecoin Videos -->
+			<div>
+				<% if !@videos.blank?%>
+					<h4> Most Hivecoins Videos </h4>
+					<table>
+						<tr>
+					<%@videos.each do |video|%>
+						<td>
+					  	<% if !video.video_pic.blank? %>
+			<%= link_to image_tag(video.video_pic_url, :class=>"video_pic"), video_path(video), title: "#{video.video_title}" %> 
+						<% else %>
+			<%= link_to image_tag('video.png', class: 'video_pic'), video_path(video), title: "#{video.video_title}" %>
+						<% end %>
+						</td>
+					<%end%>
+						</tr>
+					</table>
+				<%else%>
+				<table> <tr> <th> No Videos to Display </th> </tr> </table>
+				<%end%>
+			</div>
 	</div>
-		<%end%>
-
-	
-		<%else%>
-	
-	<div class="well">No Videos to Display</div>
-	
-<%end%>
 </div>
-<div class='pull-right' style='padding-right:20px;'>
-Visited Members: <%= @views %> </div>
 </body>
 </html>
-
-
-

@@ -10,6 +10,9 @@ Kinohive::Application.routes.draw do
       end
   end
 
+
+  get "home/index"
+
 	match "/auth/:provider/callback" => "sessions#create"
 	match "sessions/new" => "sessions#new"
 	match '/signup', to: 'users#new'	

@@ -2,14 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.video_image {
-	padding: 5px 10px !important;
-}
-
 .delete_video {
 	position:relative;
-	top: -80px;
-	left: -40px;
+	top: -50px;
+	left: -30px;
 }
 
 .video_title1 {
@@ -28,3 +24,10 @@
 {
 	text-align:center;
 }
+
+	.video_pic {
+		width: 100px !important;
+		height: 100px;
+		border: 1px dotted gray;
+		margin-right:5px;
+	}

@@ -1,11 +1,15 @@
 class Video < ActiveRecord::Base
 	require 'uri'
-	
-  attr_accessible :user_id, :video_hivecoins, :video_pic, :video_title, :video_url, :video_pic_cache
+	require 'file_size_validator'
+  attr_accessible :user_id, :video_hivecoins, :video_pic, :video_title, :video_url, :video_pic_cache, :remove_video_pic
   mount_uploader :video_pic, VideopicUploader
   belongs_to :user
   has_many :statistics, dependent: :destroy
   has_many :awarding_hivecoins, dependent: :destroy
+  validates :video_pic,  
+    :file_size => { 
+      :maximum => 0.003.megabytes.to_i 
+    } 
   
     def embed(width = "300" , height = "182")
     #iframe code should be the same for vimeo and youtube

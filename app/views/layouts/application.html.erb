@@ -1,14 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kinohive</title>
+  <title>KinoHIve</title>
+  
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-</head>
-<body>
-<div class='container'>
 
+</head>
+<style>
+.nav li{margin-top:12px;}
+.nav img{margin-top:-17px;}
+
+</style>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+
+          <li><%= link_to 'Home', root_path %></li>
+
+		<% if current_user %>
+
+			<li>	<%= link_to current_user.name, '/user_profile'%> </li>
+		<% end %>
+
+ 		<% if current_user || current_admin %>
+
+			<li><%= link_to 'Upload',  new_video_path %></li>
+					
+		<%end%>
+		
+		<% if current_user  %>
+			<li><%= link_to 'Signout', signout_path, :id => 'sign_out' %></li>
+		<%elsif current_admin%>
+
+<li><a href="/admins/sign_out" data-method="delete" rel="nofollow"><span class="label label-important">Log out</span></a></li>
+		<% else %>
+		
+			<li><%= link_to 'Signin','/sessions/new', id: 'sign_in' %></li>
+		<% end %>
+
+		         
+        </ul>
+        
+            </div>
+    </div>
+  </div>  
+  <div class="container">
+    
     <div id="notifications">
     <% [:error, :notice, :alert].each do |type| %>
       <% if flash[type] %>
@@ -20,32 +62,11 @@
     <% end %>
     </div>
 
-	<div id='user_nav' class="span12" style='text-align:right' >
-		<%= link_to 'Home', root_url %>
-		<% if current_user %>
-			<strong>	<%= link_to current_user.name, '/user_profile'%> </strong>
-		<% end %>
-		<% if current_user || current_admin %>
-			<%= link_to 'Upload',  new_video_path %>
-		<%end%>
-		
-		<% if current_user  %>
-			<%= link_to 'Signout', signout_path, :id => 'sign_out' %>
-		<%elsif current_admin%>
-
-<a href="/admins/sign_out" data-method="delete" rel="nofollow"><span class="label label-important">Log out</span></a>
-		<% else %>
-		
-			<%= link_to 'Signin','/sessions/new', id: 'sign_in' %>
-		<% end %>
-		
-		
-	</div>
-		<% flash.each do |name, msg| %>
-			<% content_tag :div, msg, id: 'flash_#{name}' %>
-		<% end %>
-
-<%= yield %>
-</div>
+    <div class="row">
+      <div class="span12">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

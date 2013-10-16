@@ -12,11 +12,11 @@
 						<% current_user.videos.each do |video| %>
 							<% if !video.video_pic.blank? %>
 						<div style='display:inline'>
-						<%= link_to image_tag(video.video_pic, width: 200, height: 200, class: 'video_image'), video_path(video), Title: "#{video.video_title}" %>  </div>
+						<%= link_to image_tag(video.video_pic, class: 'video_pic'), video_path(video), Title: "#{video.video_title}" %>  </div>
 						<%= link_to image_tag('close.png'), video, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Click to Delete Video', class: 'delete_video' %>
 							<% else %>
 							<div style='display:inline'>
-								<%= link_to image_tag('video.png', width: 200, height: 200, class: 'video_image'), video_path(video), Title: "#{video.video_title}" %>  </div>
+								<%= link_to image_tag('video.png', class: 'video_pic'), video_path(video), Title: "#{video.video_title}" %>  </div>
 						<%= link_to image_tag('close.png'), video, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Click to Delete Video', class: 'delete_video' %>
 							<% end %>
 						<% end %>

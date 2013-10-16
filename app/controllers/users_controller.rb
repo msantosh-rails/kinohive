@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
 
+	def index
+	end
+
+	
 		#######  Edit User #######
 	def edit
 	  @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -9,6 +13,7 @@ class UsersController < ApplicationController
 	
 	#######  Update User #######
 	def update
+		#render :text => params[:id].inspect and return 
 		@user = User.find(params[:id])
 		if @user.update_attributes(params[:user])
 			redirect_to '/user_profile', notice: "Profile has successfully updated"
@@ -68,12 +73,14 @@ class UsersController < ApplicationController
        @identity.reset_token = random_token
        @identity.save!
        @token = @identity.reset_token
+       #render :text => random_token.inspect and return
        UserMailer.reset_pwd_mail(@email,@token).deliver
             respond_to do |format|
               format.html{ redirect_to request.referer , :notice => "You will receive an email with instructions about how to reset your password"}
               format.js{render :nothing => true }
             end
        else
+       #email not existed in the app db
             respond_to do |format|
               format.html{ redirect_to request.referer , :notice => "Email doesn't exist in our database"}
               format.js{render :nothing => true }
