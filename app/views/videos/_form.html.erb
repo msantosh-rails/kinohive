@@ -1,0 +1,24 @@
+<%= simple_form_for( @video, :html=>{:multipart => true, class: 'form-horizontal' })  do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :video_title, :label => "Title" %>
+    
+    <%= f.input :video_url %>
+
+    <%= f.input :video_pic, :label=>"Upload Video Image" %>
+
+  </div>
+
+  <div class="form-actions">
+    <% if controller.action_name == 'new' %>
+    <%= f.submit "Upload Video", class: 'btn btn-primary' %>
+   <% else %> 
+   <%= f.submit "Update Video", class: 'btn btn-primary' %>
+   <% end %> 
+  </div>
+<% end %>
+
+
+
+

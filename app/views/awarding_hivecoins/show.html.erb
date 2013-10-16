@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hivecoin:</b>
+  <%= @awarding_hivecoin.hivecoin %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%= @awarding_hivecoin.video_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @awarding_hivecoin.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_awarding_hivecoin_path(@awarding_hivecoin) %> |
+<%= link_to 'Back', awarding_hivecoins_path %>

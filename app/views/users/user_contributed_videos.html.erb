@@ -1,0 +1,101 @@
+<html>
+	<body>
+		<div class='container'>
+			<div class='span12'>
+						<!-- left side bar -->
+				<div class='left_side_bar'>
+					<%= render :partial => 'dashboard_menu' %>
+				</div>
+						<!-- right side bar -->
+				<div class='right_side_bar'>
+					<table>
+					<% if !@contributed_videos.blank? %>
+						<tr>
+							<th> Video </th>
+							<th> Contributed Coins </th>
+						</tr>
+						<% @contributed_videos.each do |video| %>
+							<tr> 
+								<td>
+							<% if !Video.find(video.video_id).video_pic.blank? %>
+						<%= link_to image_tag(Video.find(video.video_id).video_pic, width: 100, height: 100), video_path(Video.find(video.video_id)) %>  <div class="" ><%= Video.find(video.video_id).video_title %></div>
+							<% else %>
+							<%= link_to image_tag('video.png',width: 100, height: 100), video_path(Video.find(video.video_id)) %>
+								<div class="" ><%= Video.find(video.video_id).video_title %></div>
+							<% end %>
+								</td>
+								<td style='text-align:center;'>
+									<%= video.hivecoin %>
+								</td>
+							</tr>
+						<% end %>
+					</table>		
+					<% else %>
+						<Strong> You are Not yet Contributed Hivecoins on any video </strong>
+					<% end %>
+	
+						<!-- Rendering Criticized videos -->
+
+						<% if !current_user.statistics.all.blank? %>
+							<h3> User Criticized Video's </h3>
+								<table class='table'>
+									<tr>
+										<th rowspan='2' style='text-align:center'> Video </th>
+										<th colspan='4' style='text-align:center'> Critics for Videos </th>
+									</tr>
+									<tr>
+										<th style='text-align:center'> Content </th>
+										<th style='text-align:center'> Editing </th>
+										<th style='text-align:center'> Shots </th>
+										<th style='text-align:center'> Concept </th>
+									</tr>
+								<% current_user.statistics.each do |critic_video| %>	
+									<tr>
+										<td> 
+									<% if !Video.find(critic_video.video_id).video_pic.blank? %>
+								<%= link_to image_tag(Video.find(critic_video.video_id).video_pic,width: 100, height: 100), video_path(Video.find(critic_video.video_id)) %> <div class="" ><%= Video.find(critic_video.video_id).video_title %></div>
+									<% else %>
+									<%= link_to image_tag('video.png',width: 100, height: 100), video_path(Video.find(critic_video.video_id)) %> <div class="" ><%=Video.find(critic_video.video_id).video_title%></div>
+									<% end %>
+										</td>
+										<td style='text-align:center'> 
+											<% if !critic_video.content.blank? %>
+												<%= critic_video.content %> 
+											<% else %>
+												No Comment
+											<% end %>
+										</td>
+										<td style='text-align:center'> 
+											<% if !critic_video.editing.blank? %>
+												<%= critic_video.editing %>
+											<% else %>
+												No Comment
+											<% end %> 
+										</td>
+										<td style='text-align:center'> 
+											<% if !critic_video.shots.blank? %>
+												<%= critic_video.shots %> 
+											<% else %>
+												No Comment
+											<% end %> 
+										</td>
+										<td style='text-align:center'> 
+											<% if !critic_video.concept.blank? %>
+												<%= critic_video.concept %>
+											<% else %>
+												No Comment
+											<% end %> 
+										</td>
+									</tr>	
+								<% end %>
+								</table>
+						<% else %>
+						<% end %>
+				
+ 				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<!-- Styles defined in users.css.scss and videos.css.scss -->

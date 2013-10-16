@@ -1,0 +1,2 @@
+module AwardingHivecoinsHelper
+end

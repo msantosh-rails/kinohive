@@ -1,0 +1,161 @@
+<html>
+
+<style>
+.description
+{
+
+	padding-left:5px !important;
+	padding-top:30px;
+	padding-bottom:50px;
+	
+	
+}
+</style>
+<script>
+	$(function() { 
+		$('#hivecoins_awarding').change(function() { 
+			var awarded_amount = $(this).val();
+			var video_id = <%= @video.id %>
+			//alert(awarded_amount)
+			//alert(video_id)
+			$.ajax({
+				url:'/awarding_hivecoin',
+				data: { id:awarded_amount, 
+						videoid: video_id},
+				dataType: 'html',
+				success: function(data) {
+					$('.result').html(data);
+				},
+				error: function(data) {
+						alert('error Occurred')
+				}
+			});
+		});
+		
+	});
+</script>
+
+<body>
+
+<div class="container">
+
+<div style="float:left"><!-- left div-->
+<div> 
+	
+	<% vurl = @api.oembed(
+       :url => @video.video_url,
+       :maxwidth => 600
+       )  %>
+		<span class="embed-item"> <%= raw(vurl[0].html) %>
+          </span> 
+</div>
+<br/>
+<div > <!-- Critics Div Starting-->
+
+<%#= render :partial => 'hivecoin_count'%>
+<div style=" margin-left:56%">
+
+<div class='result' style='display:inline'>
+ &nbsp;&nbsp;
+	<% if current_user %>
+	<% if @video.user_id != current_user.id %>
+		<%if user_awarded_hivecoins?(current_user.id,@video.id).nil? %>
+<select id='hivecoins_awarding' class='awarding_hivecoins'>
+	<% if current_user.total_hivecoins >= 3 %>
+		<option value='0'> 0 </option>
+		<option value='1'> 1 </option>
+		<option value='2'> 2 </option>
+		<option value='3'> 3 </option>		
+	<% elsif current_user.total_hivecoins ==2 %>
+		<option value='0'> 0 </option>
+		<option value='1'> 1 </option>
+		<option value ='2'> 2 </option>
+	<% elsif current_user.total_hivecoins ==1 %>
+		<option value='0'> 0 </option>
+		<option value='1'> 1 </option>
+	<% end %>	
+		<% end %>
+</select>
+	<% end %>
+<% end %>
+Video Hive Coins:  <strong> <%= @video.video_hivecoins.to_i %> </strong>
+</div>
+<span>  Views <%= @video_views %> </span>
+</div> 
+
+<% if current_user || current_admin  %>
+	<% if current_user %>
+	<% if @taken_critic.nil? && !own_videos?(current_user.id, @video.id)%>
+		<%= render :partial => 'statistics/form' %>
+	<% else %>
+		<strong> You have already gave the critic to this video </strong>
+	<% end %>
+	<% end %>
+<% end %>
+
+</div> <!-- Critics Div Ending-->
+	
+</div><!-- left div Ending-->
+
+<!-- Related Videos -->
+
+<div style="float:right;width:300px;display:none;"> <!-- Right Div-->
+
+<% @videos.each do |video| %>
+		
+<div>
+		<% if !video.video_url.blank?  %> 
+		<% vurl = @api.oembed(
+       :url => video.video_url,
+       :maxwidth => 150
+       )  %>
+<p style="float:left;padding-right:10px">
+
+<span class="embed-item"><a  href="<%= video_path(video) %> "> <%= image_tag(vurl[0].thumbnail_url ,:width=>150) %> </a></span> 
+
+</p>
+
+<p class="description">
+
+<span ><b>Title </b> : <%=video.video_title%></span></br>
+<span ><b>Hive Coins </b> : <%= video.video_hivecoins.to_i %> </spn>
+
+
+</p>
+
+</div>	
+
+
+      <% end %>
+
+<%end%>
+</div> <!-- Right Div End-->
+
+<!-- Video Owner Details -->
+<div class="span4">
+		<% if !@video.user_id.blank? %>
+			<h4> Video Owner Details </h4>
+				<% @video_owner = User.find(@video.user_id)  %>
+				<span ><b>Name </b> : <%= @video_owner.name.camelize %> </span></br>
+				<span ><b>Email </b> : <%= @video_owner.email %> </span> <br />
+				<span ><b>City </b> : <%= @video_owner.city.camelize %> </span></br>
+				<span ><b>State </b> : <%= @video_owner.state.camelize %> </span>
+		<% else %>
+			<h4> Video Owner Details </h4>
+				<% @video_owner = Admin.find(1)  %>
+				<span ><b>Name </b> : <%= @video_owner.name.camelize %> </span></br>
+				<span ><b>Email </b> : <%= @video_owner.email %> </span> <br />
+				<span ><b>City </b> : <%= @video_owner.city.camelize %> </span></br>
+				<span ><b>State </b> : <%= @video_owner.state.camelize %> </span>
+		<% end %>	
+</div>
+</div>
+
+</body>
+</html>
+
+<style>
+	.awarding_hivecoins {
+		width: 50px;
+	}
+</style>

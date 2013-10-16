@@ -1,0 +1,38 @@
+<html>
+
+<body>
+
+
+<h1 style='display:inline;float:left;'> Videos </h1>
+<% if !@videos.blank?%>
+ <%= render :partial => "search_form.html.erb", locals: {q: @q} %> 	
+
+
+
+
+	<%@videos.each do |video|%>
+	
+	<div class="videopic" >  
+		<% if !video.video_pic.blank? %>
+			<%= link_to image_tag(video.video_pic_url(:thumb),:width => 200, :height => 100, :class=>"img-polaroid"), video_path(video) %> 
+		<% else %>
+			<%= link_to image_tag('video.png', width: 200, height: 100, class: 'img-polaroid'), video_path(video) %>
+		<% end %>
+	<div class="title" ><%=video.video_title%></div>
+	</div>
+		<%end%>
+
+	
+		<%else%>
+	
+	<div class="well">No Videos to Display</div>
+	
+<%end%>
+</div>
+<div class='pull-right' style='padding-right:20px;'>
+Visited Members: <%= @views %> </div>
+</body>
+</html>
+
+
+

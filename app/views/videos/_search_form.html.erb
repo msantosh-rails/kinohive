@@ -1,0 +1,48 @@
+<html>
+<head >
+<style>
+.searchbox
+{
+	border-radius:25px !important;
+	width:220px !important;
+	margin:18px;
+	text-align:center;
+	padding-left:10px;
+}
+
+</style>
+<script>
+
+$(function() {
+
+    var availableTags = <%= Video.all.map(&:video_title).to_json.html_safe %>;
+
+    $( ".searchbox" ).autocomplete({
+	
+	source: availableTags
+
+    });
+
+});
+</script>
+
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  
+</head>
+<body>
+ 
+
+  
+<div style='display:inline'>
+
+ <%= search_form_for @q,:url => search_videos_path,:html => {class: 'form-horizontal '}  do |f| %>
+<div class="control-group" >
+     
+<%= f.text_field :video_title_cont, placeholder: 'Search Your Favorite Video', :class=>"searchbox"  %> 
+  </div>
+<% end %>
+</div>
+
+</body>
+</html>
+

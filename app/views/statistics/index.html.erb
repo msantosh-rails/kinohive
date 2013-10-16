@@ -1,0 +1,33 @@
+<h1>Listing statistics</h1>
+
+<table>
+  <tr>
+    <th>Content</th>
+    <th>Editing</th>
+    <th>Shots</th>
+    <th>Concept</th>
+    <th>Video</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @statistics.each do |statistic| %>
+  <tr>
+    <td><%= statistic.content %></td>
+    <td><%= statistic.editing %></td>
+    <td><%= statistic.shots %></td>
+    <td><%= statistic.concept %></td>
+    <td><%= statistic.video_id %></td>
+    <td><%= statistic.user_id %></td>
+    <td><%= link_to 'Show', statistic %></td>
+    <td><%= link_to 'Edit', edit_statistic_path(statistic) %></td>
+    <td><%= link_to 'Destroy', statistic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Statistic', new_statistic_path %>

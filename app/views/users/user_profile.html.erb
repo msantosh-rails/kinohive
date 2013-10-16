@@ -1,0 +1,197 @@
+<html>
+	<body>
+		<div class='container'>
+			<div class='span12'>
+						<!-- left side bar -->
+				<div class='left_side_bar'>
+					<%= render :partial => 'dashboard_menu' %>
+				</div>
+						<!-- right side bar -->
+				<div class='right_side_bar'>
+						<div id='user-profile'>
+								<div class="span2 pull-right">
+                                  <a href="#edit" class="btn btn-block btn-primary" id="edit-profile-button">Edit Profile</a> 
+                                </div>
+
+							<table class='table' style='width:400px;'>
+								<tr>
+									<td> Name: </td>
+									<td> <%= @current_user.name.camelize %> </td>
+								</tr>
+								<tr>
+									<td> Email: </td>
+									<td> <%= @current_user.email %> </td>
+								</tr>
+								<tr>
+									<td> Hivetype: </td>
+									<td> <%= @current_user.hivetype.camelize if !@current_user.hivetype.nil?%> </td>
+								</tr>
+								<tr>
+									<td> Age: </td>
+									<td> <%= @current_user.age %> </td>
+								</tr>
+								<tr>
+									<td> City: </td>
+									<td> <%= @current_user.city.camelize if !@current_user.city.nil? %> </td>
+								</tr>
+								<tr>
+									<td> State: </td>
+									<td> <%= @current_user.state.camelize if !@current_user.state.nil? %> </td>
+								</tr>
+								<tr>
+									<td> ZipCode: </td>
+									<td> <%= @current_user.zipcode %> </td>
+								</tr>
+								<tr>
+									<td> User HiveCoins: </td>
+									<td> <%= @current_user.total_hivecoins %> </td>
+								</tr>
+							</table>
+
+						</div>
+					
+
+					 <!-- BEGIN EDIT USER DATA -->
+                      <div id="user-edit" class="row-fluid social-box hide">
+<a href="#back" class="btn btn-warning" id="back-profile-button">
+                            <i class="icon-circle-arrow-left"></i> Go Back
+                          </a>
+                            <div class="span12">
+                            <div class="row-fluid">
+                              <div>
+                       <%= form_for @user, :url=>{:controller => "users", :action => "update", :id => "#{@current_user.id}" }, :html => {:multipart => true, :class => 'form-horizontal span6', :id => "pfl_update"}  do  |f|%>
+		<div class="control-group">
+            <label class="control-label">
+				<%= f.label :name %>
+			</label>
+            <div class="controls">
+				<%= f.text_field :name %>
+			</div>
+		</div>
+        <div class="control-group">
+            <label class="control-label">
+				<%= f.label :email %>
+			</label>
+         	<div class="controls">
+				<%= f.text_field :email %>
+			</div>
+		</div>
+	
+        <div class="control-group">
+            <label class="control-label">
+				<%= f.label :hivetype %>
+			</label>
+         	<div class="controls">
+				<%= select_tag(:hivetype, options_for_select([['Select any one',nil],['Professional Filmmaker', 'Professional_Film_Maker'], ['Aspiring Filmmaker', 'Aspiring_Film_Maker'], ['Only Critique', 'Critique']],selected: :option ), name: 'user[hivetype]') %>
+			</div>
+		</div>
+		
+
+
+        <div class="control-group">
+            <label class="control-label">
+				<%= f.label :age %>
+			</label>
+            <div class="controls">
+				<%= f.text_field :age %>
+			</div>
+		</div>
+        <div class="control-group">
+            <label class="control-label">
+				<%= f.label :city %>
+			</label>
+            <div class="controls">
+				<%= f.text_field :city %>
+			</div>
+		</div>
+        <div class="control-group">
+            <label class="control-label">
+              <%= f.label :State %>   
+			</label>
+            <div class="controls">
+              <%= f.text_field :state %>  
+            </div> 
+		</div>
+        <div class="control-group">
+            <label class="control-label">
+          	    <%= f.label :Zip_code %>  
+			</label>
+            <div class="controls">
+                <%= f.text_field :zipcode %>
+            </div>  
+		</div>
+	    <div class="control-group">
+        	 <div class="controls">
+				<%= f.submit ("Update"), :class => "btn btn-primary" %>
+			  </div>
+		</div> 	<% end %> </div>
+			</div>
+		</div>
+<div>
+<div class="heading">
+                                    <h4 class="form-heading">Change Password</h4>
+                                  </div>
+
+                                  <p>Whenever you can happily change password .</p>
+<% if  !@identity %>
+					<h4> You Can not change password, Because you have signed in to the website through social website </h4>	
+				<% else %>
+					<div id="form" >
+										
+						<%= form_for @identity, :url=>{:controller => "users", :action => "update_password", :id => "#{@identity.id}" }, :html => {:multipart => true , :onsubmit => 'return formSubmit()', :class => "form-horizontal span6", :id => 'change_pwd'}  do  |f|%>
+						
+						
+							<div class="control-group">
+                                     <label class="control-label">Email Address</label>&nbsp;
+                                    <div class="input-prepend span3">
+                          <span class="add-on">@</span><%= f.text_field :email , :disabled => 'disabled'%>
+                        
+								
+							</div></div>
+							 <div class="control-group">
+                                    <label class="control-label" for="currentpassword">
+		 						<%= label_tag :password, 'New Password*' %></label>
+                                    <div class="controls">
+		 						<%= password_field_tag :password %>
+	  						</div></div>
+
+
+							<div class="control-group">
+                                    <label class="control-label" for="confirmpassword">
+								<%= label_tag :password_confirmation, 'Re-enter Password*' %></label> <div class="controls">
+								<%= password_field_tag :password_confirmation %>
+							</div>
+                                                           </div>
+							<div class="control-group">
+                                    <div class="controls">
+								<%= f.submit ("Update Password"), :class => "btn btn-primary" %>
+							</div>
+                                  </div>
+						<% end %>
+					</div>
+			<% end %>
+
+        </div>                 
+                      <!-- END EDIT USER DATA -->
+				
+	</body>
+</html>
+
+<script>
+$(function() { 
+	$("#edit-profile-button").click(function() {
+      $("#user-profile").hide();
+      $("#user-edit").show()
+	
+    });
+
+	$("#back-profile-button").click(function() {
+      $("#user-profile").show();
+      $("#user-edit").hide()
+	  
+    });
+});
+</script>
+
+
+<!-- Styles defined in users.css.scss -->

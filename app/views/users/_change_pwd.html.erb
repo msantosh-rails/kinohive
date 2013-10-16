@@ -1,0 +1,78 @@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#change_pwd").validate({
+        
+            errorPlacement:function (error, element) {
+                if (element.attr("name") == "password")
+                    $("#pError").append(error);
+                 else if (element.attr("name") == "password_confirmation")
+                    $("#pcError").append(error);
+                
+                else
+                    error.insertAfter(element);
+            },
+
+            rules:{
+                
+                "password":{
+                    required:true,
+                     minlength:6
+                },
+                
+                "password_confirmation":{
+                    required:true,
+                    equalTo:"#password"
+                }
+                
+                
+            },
+            messages:{
+                
+                "password":{
+                required:" Password should not be empty"
+                },
+                "password_confirmation":{
+                    required:" Confirm password is Required<br>",
+                    minlength:"Confirm password  min Length is 6 characters",
+                    equalTo:"New password doesn't match"
+                }
+            }
+        });
+    });
+</script>
+
+<div id="changepass-form">
+<% if @user.provider == 'identity' %>
+  <%= form_tag '/change', :id => "change_pwd", class: 'form-horizontal', :method => 'put' do %>
+    <% if @user.errors.any? %>
+      <div class="error_messages">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being updated</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end%>
+     <%= hidden_field_tag :id, @user.id %>
+    <div class="field">
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+      <div id="pError" style="color:red;font-size:11px;font-weight:bolder"></div>
+        <br/>
+    </div>
+
+    <div class="field">
+      <%= label_tag :password_confirmation %>
+      <%= password_field_tag :password_confirmation %>
+      <div id="pcError" style="color:red;font-size:11px;font-weight:bolder"></div>
+        <br/>
+    </div>
+    <div class="actions"><%= submit_tag "Change Password"%></div>
+  <% end %>
+<% else %>
+  <h1>This Account is a linked account</h1>
+<% end %>
+</div>

@@ -1,0 +1,27 @@
+<h1>Listing awarding_hivecoins</h1>
+
+<table>
+  <tr>
+    <th>Hivecoin</th>
+    <th>Video</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @awarding_hivecoins.each do |awarding_hivecoin| %>
+  <tr>
+    <td><%= awarding_hivecoin.hivecoin %></td>
+    <td><%= awarding_hivecoin.video_id %></td>
+    <td><%= awarding_hivecoin.user_id %></td>
+    <td><%= link_to 'Show', awarding_hivecoin %></td>
+    <td><%= link_to 'Edit', edit_awarding_hivecoin_path(awarding_hivecoin) %></td>
+    <td><%= link_to 'Destroy', awarding_hivecoin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Awarding hivecoin', new_awarding_hivecoin_path %>

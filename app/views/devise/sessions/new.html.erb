@@ -1,0 +1,73 @@
+<style>
+.maindiv
+{
+	margin-top:20%;
+	xmargin-left:70%;
+}
+
+.signin
+{
+	margin-left:35%;
+	width:460px;
+	padding-top:10px;
+	border:1px solid;
+	border-radius:25px;
+	background-color:#E2E2E2;
+
+}
+.signin field {
+	width:300px !important;
+}
+.fblogin
+{
+	
+	width:175px;
+	margin-left:162px;
+	float: left;
+
+}
+
+
+</style>
+<div class="span9 maindiv" >  
+    <div class="signin">
+		
+    <div>
+    	<div class="fblogin">
+				<strong> Admin Login </strong>
+        </div> 
+     <div style='float:right;padding:20px;'>
+         <%= link_to 'User Signin', '/sessions/new' %> </div>
+    </div>
+    <div style="clear:both"> 
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+ <fieldset>
+  	<div class="control-group">
+		<label class="control-label span2" for="email">
+			<%= f.label :email %>
+		</label>
+		<div class="span2">
+		  <%= f.email_field :email, :autofocus => true %>
+		</div>
+  	</div>
+
+	<div class="control-group">
+		<label class="control-label span2" for="password">
+			<%= f.label :password %>
+		</label>
+		<div class="span2">
+			<%= f.password_field :password %>
+		</div>
+	</div>
+	<div class='controls-group'>
+		<div class='span3'>
+			<%= f.submit "Sign in" %>
+		</div>
+	</div>
+ </fieldset>
+<% end %>
+
+</div>
+  </div>
+  </div> <!--span9 -->
+</div><!-- row-fluid-->

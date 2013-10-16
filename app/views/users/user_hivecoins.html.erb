@@ -1,0 +1,68 @@
+<html>
+	<body>
+		<div class='container'>
+			<div class='span12'>
+						<!-- left side bar -->
+				<div class='left_side_bar'>
+					<%= render :partial => 'dashboard_menu' %>
+				</div>
+						<!-- right side bar -->
+				<div class='right_side_bar'>
+					<strong> Earned: </strong>
+					<div class='offset1'> 
+						<strong> Awarded Hive Coins </strong>
+					</div>
+					<table class='table' style='width:400px;'>
+							<tr>
+								<th> Video Title </th>
+								<th> HiveCoins Awarded </th>
+							</tr>
+						<% @videos.each do |video| %>	
+							<tr>
+								<td> <%= video.video_title.camelize %> </td>
+								<td> <%= video.video_hivecoins.to_i %> </td>
+							</tr>
+						<% end %>
+					</table> <br/>
+					<div class='offset1'> 
+						<strong> Earned Through Criticising the Videos </strong>
+					</div>
+					<table class='table' style='width:400px;'>
+							<tr>
+								<th> Criticised Videos Count </th>
+								<th> Earned HiveCoins </th>
+							</tr>
+							<tr>
+									<% @total_critics = Statistic.where(:user_id => current_user.id).count %>
+								<td> <%= @total_critics %> </td>
+								<td> <%= @total_critics/3 %> </td>
+							</tr>
+					</table>	<br />	<br/>
+						<strong> Contributed: </strong>
+					<div class='offset1'> 
+						<strong> Contributed Hive Coins </strong>
+					</div>
+					<table class='table' style='width:400px;'>
+							<tr>
+								<th> Video Title </th>
+								<th> HiveCoins Contributed </th>
+							</tr>
+						<% current_user.awarding_hivecoins.each do |contributed| %>	
+							<tr>
+								<td> <%= Video.find(contributed.video_id).video_title.camelize %> </td>
+								<td> <%= contributed.hivecoin.to_i %> </td>
+							</tr>
+						<% end %>
+					</table>	<br/> <br />				
+					<div style='padding:30px;'> 
+						<strong> User Total Earned Hive Coins </strong>
+						<strong> <%= current_user.total_hivecoins %> </strong>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<!-- Styles defined in users.css.scss and videos.css.scss -->

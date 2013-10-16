@@ -1,0 +1,30 @@
+// Place all the styles related to the user controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.left_side_bar {
+	width: 200px;
+	background:#F2F2F3;
+	height:auto;
+	padding:20px 5px;
+	margin-top:5px;
+	border-radius:5%;
+	float:left;
+}
+
+.left_side_bar li {
+	width: 200px;
+	display:block;
+}
+
+.right_side_bar {
+	width: 715px;
+	background:#F2F2F3;
+	height:auto;
+	border-radius:2%;
+	padding:20px 5px;
+	margin-top:5px;
+	float:right;
+	height:500px;
+	overflow:auto;
+}

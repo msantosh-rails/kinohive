@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kinohive</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class='container'>
+
+    <div id="notifications">
+    <% [:error, :notice, :alert].each do |type| %>
+      <% if flash[type] %>
+        <%= content_tag :div, class: "alert #{alert_class(type)}" do %>
+        <a class="close" data-dismiss="alert">x</a>
+        <%= flash[type] %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </div>
+
+	<div id='user_nav' class="span12" style='text-align:right' >
+		<%= link_to 'Home', root_url %>
+		<% if current_user %>
+			<strong>	<%= link_to current_user.name, '/user_profile'%> </strong>
+		<% end %>
+		<% if current_user || current_admin %>
+			<%= link_to 'Upload',  new_video_path %>
+		<%end%>
+		
+		<% if current_user  %>
+			<%= link_to 'Signout', signout_path, :id => 'sign_out' %>
+		<%elsif current_admin%>
+
+<a href="/admins/sign_out" data-method="delete" rel="nofollow"><span class="label label-important">Log out</span></a>
+		<% else %>
+		
+			<%= link_to 'Signin','/sessions/new', id: 'sign_in' %>
+		<% end %>
+		
+		
+	</div>
+		<% flash.each do |name, msg| %>
+			<% content_tag :div, msg, id: 'flash_#{name}' %>
+		<% end %>
+
+<%= yield %>
+</div>
+</body>
+</html>

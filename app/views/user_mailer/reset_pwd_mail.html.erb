@@ -1,0 +1,8 @@
+<p>Hello <%= @pwd_email %>!</p>
+
+<p>Someone has requested a link to change your password, and you can do this through the link below.</p>
+
+<p><a href="http://kinohive.herokuapp.com/changepass?reset_password_token=<%= @token %>">Change Password</a></p>
+
+<p>If you didn't request this, please ignore this email.</p>
+<p>Your password won't change until you access the link above and create a new one.</p>

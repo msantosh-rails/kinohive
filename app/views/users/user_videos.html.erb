@@ -1,0 +1,32 @@
+<html>
+	<body>
+		<div class='container'>
+			<div class='span12'>
+						<!-- left side bar -->
+				<div class='left_side_bar'>
+					<%= render :partial => 'dashboard_menu' %>
+				</div>
+						<!-- right side bar -->
+				<div class='right_side_bar'>
+					<% if !current_user.videos.blank? %>
+						<% current_user.videos.each do |video| %>
+							<% if !video.video_pic.blank? %>
+						<div style='display:inline'>
+						<%= link_to image_tag(video.video_pic, width: 200, height: 200, class: 'video_image'), video_path(video), Title: "#{video.video_title}" %>  </div>
+						<%= link_to image_tag('close.png'), video, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Click to Delete Video', class: 'delete_video' %>
+							<% else %>
+							<div style='display:inline'>
+								<%= link_to image_tag('video.png', width: 200, height: 200, class: 'video_image'), video_path(video), Title: "#{video.video_title}" %>  </div>
+						<%= link_to image_tag('close.png'), video, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Click to Delete Video', class: 'delete_video' %>
+							<% end %>
+						<% end %>
+					<% else %>
+						<strong> You are not yet created any video </strong>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</body>
+</html> 
+
+<!-- Styles defined in users.css.scss and videos.css.scss -->

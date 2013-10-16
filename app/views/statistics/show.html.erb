@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @statistic.content %>
+</p>
+
+<p>
+  <b>Editing:</b>
+  <%= @statistic.editing %>
+</p>
+
+<p>
+  <b>Shots:</b>
+  <%= @statistic.shots %>
+</p>
+
+<p>
+  <b>Concept:</b>
+  <%= @statistic.concept %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%= @statistic.video_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @statistic.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_statistic_path(@statistic) %> |
+<%= link_to 'Back', statistics_path %>

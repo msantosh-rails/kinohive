@@ -1,0 +1,84 @@
+<html>
+<style>
+
+.maindiv
+{
+	margin-top:20%;
+	xmargin-left:70%;
+}
+
+.signin
+{
+	margin-left:35%;
+	width:460px;
+	padding-top:10px;
+	border:1px solid;
+	border-radius:25px;
+	background-color:#E2E2E2;
+
+}
+.signin field {
+	width:300px !important;
+}
+.fblogin
+{
+	
+	width:175px;
+	margin-left:162px;
+	float:left;
+	
+}
+
+
+</style>
+
+<div class="row-fluid">
+  
+  <div class="span9 maindiv" >  
+  
+  
+    <div class="signin">
+    <div>
+    	<div class="fblogin">
+
+          <a href="/auth/facebook" class="auth_provider"><%= image_tag "facebook_signin.png" , size: "180x30",alt: "login with Facebook"%></a>
+          
+        </div> 
+     <div>
+         &nbsp;&nbsp;&nbsp;<%= link_to 'Admin Signin', '/admin', class: 'admin-signin' %> </div>
+    </div>
+    <div style="clear:both">
+  <%= form_tag '/auth/identity/callback', class: 'form-horizontal' do %>
+    <fieldset>
+      <div class="control-group">
+        
+        
+
+      </div>
+
+      <div class="control-group">
+        <label style="text-align:center" class="control-label" for="username">Email</label>
+        <div class="controls" style="margin:auto;">
+          <%= text_field_tag :auth_key, nil %>
+        </div>
+      </div>
+      <div class="control-group" >
+        <label style="text-align:center" class="control-label" for="password">Password</label>
+        <div class="controls" style="margin:auto;">
+          <%= password_field_tag :password, nil, id: "password" %>
+        </div>
+      </div>
+
+      <div  style="margin-left:162px">
+          <%= submit_tag "Sign in", class: 'btn btn-primary' %>
+          
+          <%= link_to "Sign Up", new_identity_path, class: 'btn btn-success' %>
+ </div> 
+			<%= link_to 'Forgot Password', '/forgotpass', class: 'offset1'%>
+    </fieldset>
+  <% end %>
+</div>
+  </div>
+  </div> <!--span8 -->
+</div><!-- row-fluid-->
+</html>

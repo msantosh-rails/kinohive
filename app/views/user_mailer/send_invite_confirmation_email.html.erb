@@ -1,0 +1,13 @@
+<h2> Dear <%= @name %> </h2>
+<p>  <%= @sender %> have sent you invitation</p>
+<p>You need to activate your account before login in to application.</p>
+<p>Your email: <%= @email %></p>
+<p>Your Password: <%= @new_pass %></p>
+<br>
+<p>You can confirm your account email through the link below:</p>
+
+<p><a href="http://20:3000/sessions/new?confirmed=<%= @password %>">Confirm my account</a> <br></p>
+<br><br><br>
+<p>Thank you,<br>
+<a href="http://localhost:3000" > kinohive </a></p>
+

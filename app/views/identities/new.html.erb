@@ -1,0 +1,105 @@
+<html>
+<style>
+.signupform1
+{
+	margin-left:200px;
+	width:460px;
+	padding-top:10px;
+	border:1px solid;
+	border-radius:25px;
+	background-color:#E2E2E2;
+
+}
+
+
+.signupmaindiv
+{
+	margin-top:20px;
+}
+</style>
+<body>
+
+
+
+<div class="row-fluid">
+
+<div class="span12 signupmaindiv">
+<h2>User Registration </h2>
+<div class="signupform">
+
+  <%= form_tag '/auth/identity/register', class: 'form-horizontal' do %>
+    <fieldset>
+<legend>User Form</legend>
+	<% if @identity && @identity.errors.any? %>
+		<div class='error_messages'>
+			<span> <%= pluralize(@identity.errors.count, 'error') %> prohibited this account from being saved: </span>
+			<ul>
+				<% @identity.errors.full_messages.each do |msg| %>
+					<li> <%= msg %> </li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+      <div class="control-group">
+        <label  class="control-label" for="username">Name</label>
+        <div class="controls" >
+          <%= text_field_tag :name, @identity.try(:name) %>
+        </div>
+      </div>
+      
+      <div class="control-group span4">
+        <label  class="control-label" for="username">Email</label>
+		 <% if @identity.try(:email) %>
+                
+                          <span id="in-f-s" class="span"><%= @identity.try(:email) %>&nbsp;<a href="javascript:;" onclick="$('#in-f-d').show();$('#in-f-s').remove();">Change</a></span>
+        
+		        <div class="controls hide" id="in-f-d" >
+		 	         <%= text_field_tag :email, @identity.try(:email) %>
+		        </div>
+		 <% else %>
+                
+                       <div class="controls">  
+                 	         <%= text_field_tag :email, @identity.try(:email) %>
+                       </div>
+                  <% end %>
+      </div>
+
+      <div class="control-group">
+        <label  class="control-label" for="username">Hive Type</label>
+        <div class="controls" >
+
+<%= select_tag(:hivetype, options_for_select([['Select Any One',nil],['Professional Filmmaker', 'Professional_Film_Maker'], ['Aspiring Filmmaker','Aspiring_Film_Maker'], ['Only Critique', 'Critique']],selected: :option )) %>
+
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label  class="control-label" for="username">Password</label>
+        <div class="controls" >
+		<%= password_field_tag :password, @identity.try(:password) %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label  class="control-label" for="username">Password Confirmation</label>
+        <div class="controls" >
+			<%= password_field_tag :password_confirmation %>
+        </div>
+      </div>
+
+      <div  class="controls">
+          <%= submit_tag "Create User", class: 'btn btn-primary' %>
+	  <input type="reset" class="btn">    
+
+ </div>
+
+    </fieldset>
+  <% end %>
+
+  </div>
+  </div> <!--span8 -->
+</div><!-- row-fluid-->
+</body>
+</html>
+

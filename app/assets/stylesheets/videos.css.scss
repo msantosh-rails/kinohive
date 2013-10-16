@@ -1,0 +1,30 @@
+// Place all the styles related to the videos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.video_image {
+	padding: 5px 10px !important;
+}
+
+.delete_video {
+	position:relative;
+	top: -80px;
+	left: -40px;
+}
+
+.video_title1 {
+	position: relative;
+	top: 70px;
+	left: -150px;
+}
+
+.videopic
+{
+	float:left;
+	margin-right:10px;
+}
+
+.title
+{
+	text-align:center;
+}
